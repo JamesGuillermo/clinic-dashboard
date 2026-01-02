@@ -1,0 +1,161 @@
+================================================================================
+              CLINIC DASHBOARD - USER GUIDE
+================================================================================
+
+A simple step-by-step guide on how to use the Clinic Report Analytics Dashboard.
+
+================================================================================
+                     GETTING STARTED
+================================================================================
+
+STEP 1: OPEN THE DASHBOARD
+--------------------------
+   • Open your web browser (Chrome, Firefox, Edge, etc.)
+   • Go to: https://jamesguillermo.github.io/clinic-dashboard/
+   • You will see the welcome screen with the Clinic Dashboard logo
+
+STEP 2: PREPARE YOUR DATA FILE
+------------------------------
+   Your CSV or Excel file should have these columns:
+   
+   ✓ APPOINTMENT DATE     - Date of patient visit
+   ✓ PURPOSE OF VISIT     - Reason for the visit
+   ✓ EMPLOYEE NO.         - Patient ID number
+   ✓ SEX                  - Male or Female
+   ✓ COMPANY NAME         - Patient's company
+   ✓ MONTHS               - Month name (e.g., JANUARY, FEBRUARY)
+   ✓ AGE YEARS            - Patient's age
+   ✓ CLEAN FINDINGS (NEW) - Clinical findings/diagnosis
+   ✓ ICD_PRIMARY          - ICD code
+   ✓ STD_LABEL_FULL       - Standardized diagnosis label
+
+STEP 3: UPLOAD YOUR DATA
+------------------------
+   • Look at the LEFT SIDEBAR
+   • Click "Choose CSV or Excel file"
+   • Select your data file from your computer
+   • Wait for the file to load (you'll see "✅ Loaded X records")
+
+================================================================================
+                      USING THE DASHBOARD
+================================================================================
+
+STEP 4: VIEW KEY METRICS
+------------------------
+   After loading data, you'll see metric cards showing:
+   
+   📊 Unique Patients    - Total number of different patients
+   📊 Total Records      - Total number of visits/records
+   📊 Avg Findings       - Average findings per patient
+   📊 Companies          - Number of companies
+   📊 ICD Codes          - Unique diagnosis codes
+   📊 Avg Age            - Average patient age
+
+STEP 5: EXPLORE THE CHARTS
+--------------------------
+   Scroll down to see various charts:
+   
+   • Patient Trends      - Daily and monthly patient visits
+   • Clinical Findings   - Top findings, daily/monthly trends
+   • Company Analysis    - Patients by company
+   • Demographics        - Age distribution, sex distribution
+   • ICD & Labels        - Top diagnosis codes and labels
+
+   TIP: Hover over any chart to see the toolbar with these options:
+        📋 Table View  - Switch between chart and data table
+        🔍 Search      - Search within the table data
+        ⛶  Fullscreen  - View chart in fullscreen mode
+        📥 Download    - Export data as CSV file
+
+================================================================================
+                        FILTERING DATA
+================================================================================
+
+STEP 6: USE FILTERS (Left Sidebar)
+----------------------------------
+   Filter your data by:
+   
+   • Company         - Select specific companies
+   • Purpose         - Filter by visit purpose
+   • Month           - Choose specific months
+   • Sex             - Male or Female
+   • Diagnosis Label - Filter by diagnosis
+   • Clinical Findings - Filter by specific findings
+   • Date Range      - Set start and end dates
+   • Age Range       - Adjust minimum and maximum age
+
+   HOW TO USE FILTERS:
+   1. Click on any filter dropdown
+   2. Type to search for options
+   3. Click to select (can select multiple)
+   4. Selected items appear as tags
+   5. Click ✕ on a tag to remove it
+   6. Click "Clear All Filters" to reset everything
+
+================================================================================
+                     EXPORTING DATA
+================================================================================
+
+STEP 7: EXPORT YOUR DATA
+------------------------
+   At the bottom of the page, you can export:
+   
+   📁 Export Full CSV    - Download all filtered data
+   📁 Export Summary     - Download summary statistics
+   
+   Chart-level exports:
+   • Switch any chart to table view
+   • Click the download button to export that chart's data
+
+================================================================================
+                      MOBILE USERS
+================================================================================
+
+STEP 8: USING ON MOBILE/TABLET
+------------------------------
+   On smaller screens:
+   
+   • Tap the ☰ menu button (top-left) to open the sidebar
+   • Tap anywhere outside the sidebar to close it
+   • All charts and filters work the same way
+   • Swipe to scroll through the dashboard
+
+================================================================================
+                     TROUBLESHOOTING
+================================================================================
+
+PROBLEM: "Data not loading"
+SOLUTION: Make sure your file has the correct column names listed above.
+
+PROBLEM: "Some charts are empty"
+SOLUTION: Check if your filters are too restrictive. Click "Clear All Filters".
+
+PROBLEM: "Numbers look wrong after clearing filters"
+SOLUTION: Refresh the page (press F5) and reload your data.
+
+PROBLEM: "Can't see the sidebar on mobile"
+SOLUTION: Tap the hamburger menu (☰) in the top-left corner.
+
+================================================================================
+                        TIPS & TRICKS
+================================================================================
+
+💡 TIP 1: Use the Top N slider to control how many items appear in charts.
+
+💡 TIP 2: Months are sorted in calendar order (January, February, etc.).
+
+💡 TIP 3: Double-click a chart's fullscreen button to quickly view details.
+
+💡 TIP 4: The dashboard auto-updates when you change any filter.
+
+💡 TIP 5: Export filtered data to create custom reports.
+
+================================================================================
+                         SUPPORT
+================================================================================
+
+For technical issues or feature requests, please contact your IT administrator.
+
+================================================================================
+                     END OF USER GUIDE
+================================================================================
