@@ -71,10 +71,59 @@ body {
 }
 
 /* Sidebar Styles */
+.sidebar-header {
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.sidebar-logo {
+    max-width: 100%;
+    height: auto;
+    max-height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
 .sidebar-header h1 {
     font-size: 1.25rem;
     color: var(--text-primary);
     margin-bottom: 0.5rem;
+}
+
+/* Header with Logo */
+.header-with-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.header-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+/* Welcome Logo */
+.welcome-logo {
+    max-width: 280px;
+    height: auto;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 212, 255, 0.15);
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
 }
 
 #sidebar hr {

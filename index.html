@@ -7,6 +7,9 @@
     <title>Clinic Report Dashboard</title>
     <meta name="description" content="Interactive clinic report analytics dashboard for healthcare data visualization">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="clinic_dashboard_logos/Clinic_Report_Dashboard_Tab_Logo.png">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +48,7 @@
     <!-- Sidebar -->
     <aside id="sidebar">
         <div class="sidebar-header">
-            <h1>🏥 Clinic Dashboard</h1>
+            <img src="clinic_dashboard_logos/Clinic_Dashboard_Logo.png" alt="Clinic Dashboard" class="sidebar-logo">
         </div>
         <hr>
 
@@ -131,13 +134,17 @@
     <main id="main-content">
         <!-- Header -->
         <header class="dashboard-header">
-            <h1>📊 Clinic Report Analytics Dashboard</h1>
+            <div class="header-with-logo">
+                <img src="clinic_dashboard_logos/Clinic_Dashboard_Logo.png" alt="" class="header-logo">
+                <h1>Clinic Report Analytics Dashboard</h1>
+            </div>
             <p id="headerCaption" class="caption">Upload a CSV or Excel file to begin analysis</p>
         </header>
 
         <!-- Welcome Message (shown before data load) -->
         <div id="welcomeMessage" class="welcome-message">
-            <div class="welcome-icon">📂</div>
+            <img src="clinic_dashboard_logos/Clinic_Report_Analytics_Dashboard_Logo.png" alt="Clinic Report Analytics"
+                class="welcome-logo">
             <h2>Welcome to the Clinic Dashboard</h2>
             <p>Upload your clinic report data (CSV or Excel) using the sidebar to get started.</p>
             <div class="expected-columns">
