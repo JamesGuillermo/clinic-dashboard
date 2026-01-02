@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic Report Dashboard</title>
+    <meta name="description" content="Interactive clinic report analytics dashboard for healthcare data visualization">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- PapaParse for CSV -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+    <!-- SheetJS for Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <!-- FileSaver for downloads -->
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+
+    <!-- Luxon for dates -->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <h1>🏥 Clinic Dashboard</h1>
+        </div>
+        <hr>
+
+        <!-- File Upload -->
+        <section class="sidebar-section">
+            <h3>📁 Data Source</h3>
+            <div class="file-upload-wrapper">
+                <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" />
+                <label for="fileInput" class="file-upload-label">
+                    <span id="fileLabel">Choose CSV or Excel file</span>
+                </label>
+            </div>
+            <div id="fileStatus" class="file-status"></div>
+        </section>
+        <hr>
+
+        <!-- Filters -->
+        <section class="sidebar-section">
+            <h3>🔍 Filters</h3>
+
+            <div class="filter-group">
+                <label>Company</label>
+                <div id="companyFilter"></div>
+            </div>
+
+            <div class="filter-group">
+                <label>Purpose of Visit</label>
+                <div id="purposeFilter"></div>
+            </div>
+
+            <div class="filter-group">
+                <label>Month</label>
+                <div id="monthFilter"></div>
+            </div>
+
+            <div class="filter-group">
+                <label>Sex</label>
+                <div id="sexFilter"></div>
+            </div>
+
+            <div class="filter-group">
+                <label>Diagnosis Label</label>
+                <div id="labelFilter"></div>
+            </div>
+
+            <div class="filter-group">
+                <label>Clinical Findings</label>
+                <div id="findingsFilter"></div>
+            </div>
+
+            <div class="filter-group">
+                <label>Date Range</label>
+                <div class="date-range">
+                    <input type="date" id="dateStart" />
+                    <span>to</span>
+                    <input type="date" id="dateEnd" />
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label for="ageRange">Age Range: <span id="ageRangeLabel">0 - 100</span></label>
+                <div class="range-slider">
+                    <input type="range" id="ageMin" min="0" max="100" value="0" />
+                    <input type="range" id="ageMax" min="0" max="100" value="100" />
+                </div>
+            </div>
+
+            <button id="clearFilters" class="btn-secondary">Clear All Filters</button>
+        </section>
+        <hr>
+
+        <!-- Settings -->
+        <section class="sidebar-section">
+            <h3>⚙️ Chart Settings</h3>
+            <div class="filter-group">
+                <label for="topNSlider">Top N items: <span id="topNLabel">15</span></label>
+                <input type="range" id="topNSlider" min="5" max="30" value="15" />
+            </div>
+        </section>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <h1>📊 Clinic Report Analytics Dashboard</h1>
+            <p id="headerCaption" class="caption">Upload a CSV or Excel file to begin analysis</p>
+        </header>
+
+        <!-- Welcome Message (shown before data load) -->
+        <div id="welcomeMessage" class="welcome-message">
+            <div class="welcome-icon">📂</div>
+            <h2>Welcome to the Clinic Dashboard</h2>
+            <p>Upload your clinic report data (CSV or Excel) using the sidebar to get started.</p>
+            <div class="expected-columns">
+                <h4>Expected columns:</h4>
+                <ul>
+                    <li>APPOINTMENT DATE</li>
+                    <li>PURPOSE OF VISIT</li>
+                    <li>EMPLOYEE NO.</li>
+                    <li>SEX</li>
+                    <li>COMPANY NAME</li>
+                    <li>MONTHS</li>
+                    <li>AGE YEARS</li>
+                    <li>CLEAN FINDINGS (NEW)</li>
+                    <li>ICD_PRIMARY</li>
+                    <li>STD_LABEL_FULL</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Dashboard Content (hidden until data loads) -->
+        <div id="dashboardContent" class="hidden">
+            <!-- Key Metrics -->
+            <section class="metrics-section">
+                <h2>📈 Key Metrics</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Unique Patients</div>
+                        <div class="metric-value" id="metricPatients">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total Records</div>
+                        <div class="metric-value" id="metricRecords">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Avg Findings/Patient</div>
+                        <div class="metric-value" id="metricAvgFindings">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Companies</div>
+                        <div class="metric-value" id="metricCompanies">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Unique ICD Codes</div>
+                        <div class="metric-value" id="metricICD">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Avg Age</div>
+                        <div class="metric-value" id="metricAvgAge">0</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Clinical Findings Metrics -->
+            <section class="metrics-section">
+                <h3>🔬 Clinical Findings Insights</h3>
+                <div class="metrics-grid metrics-grid-4">
+                    <div class="metric-card">
+                        <div class="metric-label">Unique Findings</div>
+                        <div class="metric-value" id="metricUniqueFindings">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Most Common Finding</div>
+                        <div class="metric-value metric-value-sm" id="metricTopFinding">N/A</div>
+                        <div class="metric-delta" id="metricTopFindingCount"></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Top Finding (Peak Month)</div>
+                        <div class="metric-value metric-value-sm" id="metricPeakMonthFinding">N/A</div>
+                        <div class="metric-delta" id="metricPeakMonth"></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Top Finding (Largest Age)</div>
+                        <div class="metric-value metric-value-sm" id="metricAgeGroupFinding">N/A</div>
+                        <div class="metric-delta" id="metricLargestAge"></div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="section-divider">
+
+            <!-- Patient Flow Analysis -->
+            <section class="chart-section">
+                <h2>🚶 Patient Flow Analysis</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="patientDaily">📅 Daily</button>
+                    <button class="tab-btn" data-tab="patientMonthly">📆 Monthly</button>
+                    <button class="tab-btn" data-tab="patientComparison">📊 Comparison</button>
+                </div>
+                <div class="tab-content">
+                    <div id="patientDaily" class="tab-panel active">
+                        <canvas id="dailyPatientsChart"></canvas>
+                    </div>
+                    <div id="patientMonthly" class="tab-panel">
+                        <canvas id="monthlyPatientsChart"></canvas>
+                    </div>
+                    <div id="patientComparison" class="tab-panel">
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Clinical Findings Flow -->
+            <section class="chart-section">
+                <h2>🔬 Clinical Findings Flow Analysis</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="findingsDaily">📅 Daily</button>
+                    <button class="tab-btn" data-tab="findingsMonthly">📆 Monthly</button>
+                    <button class="tab-btn" data-tab="topFindings">🏆 Top Findings</button>
+                </div>
+                <div class="tab-content">
+                    <div id="findingsDaily" class="tab-panel active">
+                        <canvas id="dailyFindingsChart"></canvas>
+                    </div>
+                    <div id="findingsMonthly" class="tab-panel">
+                        <canvas id="monthlyFindingsChart"></canvas>
+                    </div>
+                    <div id="topFindings" class="tab-panel">
+                        <canvas id="topFindingsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Company & Visit Analysis -->
+            <section class="chart-section">
+                <h2>🏢 Company & Visit Analysis</h2>
+                <div class="chart-grid">
+                    <div class="chart-container">
+                        <canvas id="companyChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="purposeChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Demographics -->
+            <section class="chart-section">
+                <h2>👥 Demographics (Unique Patients)</h2>
+                <div class="chart-grid chart-grid-4">
+                    <div class="chart-container">
+                        <canvas id="sexChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="ageChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="weekdayChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="ageBracketChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diagnosis Analysis -->
+            <section class="chart-section">
+                <h2>🩺 Diagnosis Analysis</h2>
+                <div class="chart-grid">
+                    <div class="chart-container">
+                        <canvas id="icdChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="labelChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Table -->
+            <section class="data-section">
+                <h2>📋 Data Preview</h2>
+                <details class="data-expander">
+                    <summary>View Filtered Data (First 100 rows)</summary>
+                    <div class="table-wrapper">
+                        <table id="dataTable">
+                            <thead id="dataTableHead"></thead>
+                            <tbody id="dataTableBody"></tbody>
+                        </table>
+                    </div>
+                </details>
+            </section>
+
+            <!-- Export Section -->
+            <section class="export-section">
+                <h2>💾 Export</h2>
+                <div class="export-buttons">
+                    <button id="exportFiltered" class="btn-primary">📥 Download Filtered Data (CSV)</button>
+                    <button id="exportSummary" class="btn-primary">📥 Download Summary Stats</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- JavaScript Modules -->
+    <script src="js/config.js"></script>
+    <script src="js/dataLoader.js"></script>
+    <script src="js/dataProcessor.js"></script>
+    <script src="js/searchableSelect.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/chartToolbar.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

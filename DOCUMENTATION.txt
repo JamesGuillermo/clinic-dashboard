@@ -1,0 +1,409 @@
+================================================================================
+                    CLINIC REPORT DASHBOARD - WEB VERSION
+                    Complete Documentation & Setup Guide
+================================================================================
+
+TABLE OF CONTENTS
+-----------------
+1. OVERVIEW
+2. FILE STRUCTURE
+3. LOCAL TESTING (STEP BY STEP)
+4. USING THE DASHBOARD
+5. DEPLOYMENT TO GITHUB PAGES
+6. DEPLOYMENT TO FIREBASE HOSTING
+7. TROUBLESHOOTING
+8. CUSTOMIZATION GUIDE
+9. TECHNICAL REFERENCE
+
+================================================================================
+1. OVERVIEW
+================================================================================
+
+This is a web-based Clinic Report Analytics Dashboard converted from the 
+original Python Streamlit application. It runs entirely in the browser with
+no server required - all data processing happens client-side using JavaScript.
+
+KEY FEATURES:
+- Upload CSV or Excel files containing clinic data
+- Real-time filtering by company, purpose, month, sex, date range, and age
+- Interactive Chart.js visualizations (14 different chart types)
+- Key metrics dashboard (unique patients, findings, demographics)
+- Export filtered data and summary statistics to CSV
+- Dark theme matching the original Streamlit design
+- Fully responsive for desktop and tablet
+
+EXPECTED DATA COLUMNS:
+Your data file should contain these columns:
+- APPOINTMENT DATE       (date of visit)
+- PURPOSE OF VISIT       (e.g., Annual Physical Exam, Sick Leave)
+- EMPLOYEE NO.           (unique patient identifier)
+- SEX                    (MALE/FEMALE)
+- COMPANY NAME           (employer/company)
+- MONTHS                 (month name, e.g., January)
+- AGE YEARS              (patient age as number)
+- CLEAN FINDINGS (NEW)   (clinical findings/diagnoses)
+- ICD_PRIMARY            (ICD diagnosis code)
+- STD_LABEL_FULL         (standardized diagnosis label)
+
+
+================================================================================
+2. FILE STRUCTURE
+================================================================================
+
+clinic-dashboard/
+│
+├── index.html              Main HTML file (entry point)
+├── sample_data.csv         Sample data for testing
+│
+├── css/
+│   └── styles.css          Dark theme styling
+│
+├── js/
+│   ├── config.js           Column mappings and constants
+│   ├── dataLoader.js       CSV/Excel file parsing
+│   ├── dataProcessor.js    Analytics functions (like Pandas)
+│   ├── filters.js          Filter management and state
+│   ├── charts.js           Chart.js visualizations
+│   ├── export.js           CSV export functionality
+│   └── main.js             Main application orchestrator
+│
+└── DOCUMENTATION.txt       This file
+
+
+================================================================================
+3. LOCAL TESTING (STEP BY STEP)
+================================================================================
+
+OPTION A: Using Python's Built-in Server (Simplest)
+----------------------------------------------------
+1. Open PowerShell or Command Prompt
+2. Navigate to the dashboard folder:
+   
+   cd "C:\Users\Lifecare IT Admin\Documents\Python program\Learning_Python\Jupyter_Notebook\Work\clinic-dashboard"
+
+3. Start the server:
+   
+   python -m http.server 8080
+
+4. Open your browser and go to:
+   
+   http://localhost:8080
+
+5. To stop the server: Press Ctrl+C in the terminal
+
+
+OPTION B: Using Node.js http-server (Recommended)
+-------------------------------------------------
+1. Install Node.js from https://nodejs.org if not installed
+
+2. Open PowerShell or Command Prompt
+
+3. Navigate to the dashboard folder:
+   
+   cd "C:\Users\Lifecare IT Admin\Documents\Python program\Learning_Python\Jupyter_Notebook\Work\clinic-dashboard"
+
+4. Start the server:
+   
+   npx http-server -p 8080 -c-1
+
+   (The -c-1 flag disables caching for development)
+
+5. Open your browser and go to:
+   
+   http://localhost:8080
+
+6. To stop the server: Press Ctrl+C in the terminal
+
+
+OPTION C: Using VS Code Live Server Extension
+----------------------------------------------
+1. Install "Live Server" extension in VS Code
+2. Open the clinic-dashboard folder in VS Code
+3. Right-click on index.html
+4. Select "Open with Live Server"
+5. Browser opens automatically
+
+
+================================================================================
+4. USING THE DASHBOARD
+================================================================================
+
+STEP 1: UPLOAD YOUR DATA
+-------------------------
+1. Click "Choose CSV or Excel file" in the sidebar
+2. Select your clinic data file (.csv or .xlsx)
+3. Wait for "Loaded X records" message to appear
+4. The dashboard will display with all charts and metrics
+
+STEP 2: APPLY FILTERS (OPTIONAL)
+---------------------------------
+- Company: Hold Ctrl and click to select multiple companies
+- Purpose of Visit: Filter by visit type
+- Month: Filter by specific months
+- Sex: Filter by MALE/FEMALE
+- Diagnosis Label: Filter by diagnosis category
+- Date Range: Set start and end dates
+- Age Range: Drag sliders to set age range
+- Click "Clear All Filters" to reset
+
+STEP 3: EXPLORE THE CHARTS
+---------------------------
+- Use tabs to switch between Daily/Monthly/Comparison views
+- Hover over chart elements to see details
+- Charts automatically update when filters change
+
+STEP 4: EXPORT DATA
+--------------------
+Scroll to the bottom and click:
+- "Download Filtered Data (CSV)" - exports all filtered records
+- "Download Summary Stats" - exports key metrics
+
+
+================================================================================
+5. DEPLOYMENT TO GITHUB PAGES
+================================================================================
+
+PREREQUISITES:
+- Git installed (https://git-scm.com/downloads)
+- GitHub account (https://github.com/join)
+
+STEP-BY-STEP:
+
+1. CREATE GITHUB REPOSITORY
+   - Go to github.com and log in
+   - Click the "+" icon (top-right) → "New repository"
+   - Repository name: clinic-dashboard
+   - Visibility: Public (required for free GitHub Pages)
+   - Do NOT check "Add a README file"
+   - Click "Create repository"
+   - Copy the repository URL (e.g., https://github.com/YOUR_USERNAME/clinic-dashboard.git)
+
+2. INITIALIZE AND PUSH CODE
+   Open PowerShell and run:
+
+   cd "C:\Users\Lifecare IT Admin\Documents\Python program\Learning_Python\Jupyter_Notebook\Work\clinic-dashboard"
+   git init
+   git add .
+   git commit -m "Initial commit: Clinic Dashboard web version"
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/clinic-dashboard.git
+   git push -u origin main
+
+   Replace YOUR_USERNAME with your actual GitHub username.
+   If prompted for password, use a Personal Access Token (create at GitHub Settings → Developer settings → Personal access tokens).
+
+3. ENABLE GITHUB PAGES
+   - Go to your repository on GitHub
+   - Click "Settings" tab
+   - Click "Pages" in the left sidebar
+   - Under "Source", select "Deploy from a branch"
+   - Under "Branch", select "main" and "/ (root)"
+   - Click "Save"
+   - Wait 1-2 minutes for deployment
+
+4. ACCESS YOUR DASHBOARD
+   Your dashboard will be live at:
+   https://YOUR_USERNAME.github.io/clinic-dashboard/
+
+5. FUTURE UPDATES
+   After making changes:
+   
+   git add .
+   git commit -m "Your update description"
+   git push
+
+
+================================================================================
+6. DEPLOYMENT TO FIREBASE HOSTING
+================================================================================
+
+PREREQUISITES:
+- Node.js installed (https://nodejs.org)
+- Google account
+
+STEP-BY-STEP:
+
+1. INSTALL FIREBASE CLI
+   Open PowerShell and run:
+   
+   npm install -g firebase-tools
+
+2. LOG IN TO FIREBASE
+   
+   firebase login
+
+   A browser window will open. Sign in with your Google account.
+
+3. CREATE FIREBASE PROJECT
+   - Go to https://console.firebase.google.com/
+   - Click "Add project"
+   - Name: clinic-dashboard
+   - Disable Google Analytics (optional)
+   - Click "Create project"
+   - Click "Continue" when done
+
+4. INITIALIZE FIREBASE IN YOUR PROJECT
+   
+   cd "C:\Users\Lifecare IT Admin\Documents\Python program\Learning_Python\Jupyter_Notebook\Work\clinic-dashboard"
+   firebase init hosting
+
+   Answer the prompts:
+   - Please select an option: Use an existing project
+   - Select project: clinic-dashboard (or your project name)
+   - Public directory: . (just a period)
+   - Single-page app: No
+   - Automatic GitHub deploys: No
+   - Overwrite index.html: No (IMPORTANT!)
+
+5. DEPLOY
+   
+   firebase deploy
+
+   Wait for deployment. You'll see:
+   ✔ Deploy complete!
+   Hosting URL: https://clinic-dashboard-xxxxx.web.app
+
+6. ACCESS YOUR DASHBOARD
+   Your dashboard is now live at the URL shown.
+
+7. FUTURE UPDATES
+   After making changes, simply run:
+   
+   firebase deploy
+
+
+================================================================================
+7. TROUBLESHOOTING
+================================================================================
+
+PROBLEM: Page shows blank or loading forever
+SOLUTION: 
+- Check browser console (F12 → Console tab) for errors
+- Ensure all JavaScript files are in the correct locations
+- Make sure you're using a web server (not opening index.html directly)
+
+PROBLEM: Charts not appearing
+SOLUTION:
+- Check if the data loaded successfully (sidebar shows record count)
+- Verify your CSV has the correct column names
+- Check browser console for JavaScript errors
+
+PROBLEM: File upload doesn't work
+SOLUTION:
+- Ensure file is .csv, .xlsx, or .xls format
+- Check file size (very large files may take time)
+- Try a smaller test file first
+
+PROBLEM: Filters not working
+SOLUTION:
+- Hold Ctrl while clicking to select multiple options
+- Click "Clear All Filters" and try again
+- Refresh the page and re-upload data
+
+PROBLEM: Export downloads empty file
+SOLUTION:
+- Ensure data is loaded before exporting
+- Check if all data is filtered out (try clearing filters)
+
+PROBLEM: GitHub Pages shows 404
+SOLUTION:
+- Wait 2-5 minutes for deployment
+- Check Settings → Pages for deployment status
+- Ensure index.html is in the root of your repository
+
+PROBLEM: Firebase deploy fails
+SOLUTION:
+- Run: firebase login --reauth
+- Check firebase.json has correct public directory
+- Run: firebase use YOUR_PROJECT_ID
+
+PROBLEM: Styles look wrong / no dark theme
+SOLUTION:
+- Verify css/styles.css exists and is not empty
+- Clear browser cache (Ctrl+Shift+R)
+- Check the CSS link in index.html
+
+
+================================================================================
+8. CUSTOMIZATION GUIDE
+================================================================================
+
+CHANGING COLORS:
+Edit css/styles.css, look for :root { ... } at the top:
+  --accent-cyan: #00d4ff;    (main accent color)
+  --accent-green: #22c55e;   (success/positive color)
+  --bg-primary: #0e1117;     (main background)
+
+ADDING NEW COLUMNS:
+1. Edit js/config.js - add column name to COLUMNS object
+2. Edit js/dataProcessor.js - add analysis functions
+3. Edit js/filters.js - add filter logic if needed
+4. Edit index.html - add filter UI elements
+
+ADDING NEW CHARTS:
+1. Add canvas element in index.html:
+   <canvas id="myNewChart"></canvas>
+2. Add render function in js/charts.js
+3. Call render function in Charts.renderAll()
+
+CHANGING CHART TYPES:
+In js/charts.js, change the 'type' property:
+- 'bar' for bar charts
+- 'line' for line charts
+- 'doughnut' for donut/pie charts
+- 'radar' for radar charts
+
+MODIFYING METRICS:
+Edit js/main.js, updateMetrics() function to change which 
+metrics are displayed or how they're calculated.
+
+
+================================================================================
+9. TECHNICAL REFERENCE
+================================================================================
+
+EXTERNAL LIBRARIES (loaded via CDN):
+- Chart.js 4.4.1     - Interactive charts
+- PapaParse 5.4.1    - CSV parsing
+- SheetJS 0.18.5     - Excel file parsing
+- FileSaver 2.0.5    - File download functionality
+- Luxon 3.4.4        - Date handling (available but not extensively used)
+- Inter Font         - Typography
+
+BROWSER COMPATIBILITY:
+- Chrome 90+         ✓
+- Firefox 88+        ✓
+- Edge 90+           ✓
+- Safari 14+         ✓
+- Mobile browsers    ✓ (responsive design)
+
+PERFORMANCE NOTES:
+- Tested with 30 records (instant)
+- Should handle 10,000-50,000 records smoothly
+- Very large files (100,000+) may cause browser slowdown
+- Data processing happens on page load and filter changes
+
+DATA PRIVACY:
+- All data processing is client-side (in your browser)
+- No data is sent to any server
+- Data is lost when you close the browser tab
+- Safe to use with sensitive medical data
+
+FILE SIZE LIMITS:
+- CSV: No hard limit, but very large files may slow browser
+- Excel: Depends on browser memory
+- Recommended: Under 50MB for smooth performance
+
+
+================================================================================
+SUPPORT & CONTACT
+================================================================================
+
+This dashboard was converted from the Python Streamlit version:
+clinic_report_dashboard.py
+
+For issues or questions, check the troubleshooting section above.
+
+================================================================================
+                         END OF DOCUMENTATION
+================================================================================

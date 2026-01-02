@@ -1,0 +1,31 @@
+APPOINTMENT DATE,PURPOSE OF VISIT,EMPLOYEE NO.,SEX,COMPANY NAME,MONTHS,AGE YEARS,CLEAN FINDINGS (NEW),ICD_PRIMARY,STD_LABEL_FULL
+2024-01-15,Annual Physical Exam,EMP001,MALE,ABC Corp,January,35,Hypertension,I10,Essential hypertension
+2024-01-15,Annual Physical Exam,EMP002,FEMALE,ABC Corp,January,28,Normal findings,Z00.00,General examination
+2024-01-16,Follow-up Consultation,EMP001,MALE,ABC Corp,January,35,Diabetes Type 2,E11.9,Type 2 diabetes mellitus
+2024-01-16,Annual Physical Exam,EMP003,MALE,XYZ Industries,January,45,Obesity,E66.9,Obesity unspecified
+2024-01-17,Sick Leave Consultation,EMP004,FEMALE,XYZ Industries,January,32,Acute upper respiratory infection,J06.9,Acute URI
+2024-01-18,Annual Physical Exam,EMP005,MALE,Tech Solutions,January,52,Hyperlipidemia,E78.5,Hyperlipidemia
+2024-01-18,Annual Physical Exam,EMP006,FEMALE,Tech Solutions,January,29,Normal findings,Z00.00,General examination
+2024-01-19,Pre-employment Exam,EMP007,MALE,ABC Corp,January,24,Normal findings,Z02.1,Pre-employment examination
+2024-01-22,Sick Leave Consultation,EMP008,FEMALE,Global Services,January,38,Migraine,G43.909,Migraine unspecified
+2024-01-23,Follow-up Consultation,EMP003,MALE,XYZ Industries,January,45,Hypertension,I10,Essential hypertension
+2024-02-01,Annual Physical Exam,EMP009,MALE,ABC Corp,February,41,Normal findings,Z00.00,General examination
+2024-02-01,Annual Physical Exam,EMP010,FEMALE,Global Services,February,33,Anemia,D64.9,Anemia unspecified
+2024-02-05,Sick Leave Consultation,EMP002,FEMALE,ABC Corp,February,28,Gastritis,K29.70,Gastritis unspecified
+2024-02-06,Annual Physical Exam,EMP011,MALE,Tech Solutions,February,55,Diabetes Type 2,E11.9,Type 2 diabetes mellitus
+2024-02-06,Annual Physical Exam,EMP012,FEMALE,XYZ Industries,February,27,Normal findings,Z00.00,General examination
+2024-02-08,Follow-up Consultation,EMP005,MALE,Tech Solutions,February,52,Hyperlipidemia,E78.5,Hyperlipidemia
+2024-02-12,Pre-employment Exam,EMP013,MALE,Global Services,February,23,Normal findings,Z02.1,Pre-employment examination
+2024-02-14,Annual Physical Exam,EMP014,FEMALE,ABC Corp,February,47,Hypothyroidism,E03.9,Hypothyroidism
+2024-02-15,Sick Leave Consultation,EMP015,MALE,XYZ Industries,February,36,Back pain,M54.5,Low back pain
+2024-02-19,Annual Physical Exam,EMP016,FEMALE,Tech Solutions,February,31,Normal findings,Z00.00,General examination
+2024-03-01,Annual Physical Exam,EMP017,MALE,ABC Corp,March,42,Hypertension,I10,Essential hypertension
+2024-03-04,Sick Leave Consultation,EMP018,FEMALE,Global Services,March,29,Acute bronchitis,J20.9,Acute bronchitis
+2024-03-05,Follow-up Consultation,EMP014,FEMALE,ABC Corp,March,47,Hypothyroidism,E03.9,Hypothyroidism
+2024-03-06,Annual Physical Exam,EMP019,MALE,XYZ Industries,March,58,Diabetes Type 2,E11.9,Type 2 diabetes mellitus
+2024-03-06,Annual Physical Exam,EMP019,MALE,XYZ Industries,March,58,Hypertension,I10,Essential hypertension
+2024-03-07,Pre-employment Exam,EMP020,FEMALE,Tech Solutions,March,26,Normal findings,Z02.1,Pre-employment examination
+2024-03-11,Annual Physical Exam,EMP021,MALE,Global Services,March,39,Obesity,E66.9,Obesity unspecified
+2024-03-12,Sick Leave Consultation,EMP022,FEMALE,ABC Corp,March,34,Urinary tract infection,N39.0,UTI unspecified
+2024-03-14,Annual Physical Exam,EMP023,MALE,XYZ Industries,March,48,Hyperlipidemia,E78.5,Hyperlipidemia
+2024-03-15,Follow-up Consultation,EMP001,MALE,ABC Corp,March,35,Hypertension,I10,Essential hypertension
